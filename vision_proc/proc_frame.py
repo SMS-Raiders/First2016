@@ -1,5 +1,5 @@
 #!/bin/python
-#Frame processing and distance estimation for 
+#Frame processing and distance estimation for
 #goal
 
 import cv2
@@ -35,17 +35,18 @@ def find_center( contours ):
     """ Find the center of a contour based on moments """
     ret = []
 
-    for x in contours: 
+    for x in contours:
         M = cv2.moments( x )
         pt = Point()
         pt.x = int( M['m10']/M['m00'] )
         pt.y = int( M['m01']/M['m00'] )
-        
-        ret.append( pt ) 
+
+        ret.append( pt )
 
     return( ret );
 
 def convex_hull_area( contours, debug= False ):
+    """ find the convex hull area of selected contours """
     ret_areas = []
     ret_hulls = []
     for c in contours:
@@ -54,7 +55,7 @@ def convex_hull_area( contours, debug= False ):
         ret_areas.append( area )
         ret_hulls.append( hull )
         if( debug ):
-            print( "Hull area: {0}".format( area ) )     
+            print( "Hull area: {0}".format( area ) )
 
     return ( ret_areas, ret_hulls )
 
@@ -82,7 +83,7 @@ def proc_frame( frame, debug=False ):
     else:
         color_mask = cv2.inRange( hsv_frame, MASK_LOW, MASK_HIGH )
 
-    #Apply our color mask 
+    #Apply our color mask
     masked_frame = cv2.bitwise_and( hsv_frame, hsv_frame, mask = color_mask )
 
     #Contours stuff...
@@ -91,7 +92,7 @@ def proc_frame( frame, debug=False ):
     draw = find_goal( contours )
     hull_areas, hulls = convex_hull_area( draw )
     centers = find_center( draw )
-    
+
     #If debug mode, show the result of the line finding in a GUI
     if( debug ):
         #for line in lines:
@@ -109,4 +110,4 @@ def proc_frame( frame, debug=False ):
 
     #return dist_from_goal( hull_area ), angle_from_point( centers[0].x, len( frame[0] ) )
     return( 3, 4 )
-        
+
