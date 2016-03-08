@@ -11,7 +11,7 @@ from Queue import Queue as Q
 from GoalTCPServer import GoalTCPHandler, GoalTCPStartHandler
 
 debug = True
-use_still = True
+use_still = False
 shared_q = Q()
 def fake_callback( arg ):
     pass
@@ -19,8 +19,8 @@ def fake_callback( arg ):
 #open the webcam and get an image
 print( "Opening Video Capture on Device 0" )
 
-#UNCOMMENT
-#vidcap = cv2.VideoCapture(0)
+if( not use_still ):
+    vidcap = cv2.VideoCapture(0)
 
 if( not use_still ):
     #Get the first frame, or loop until the feed opens

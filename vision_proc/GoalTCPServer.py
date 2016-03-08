@@ -14,18 +14,11 @@ class GoalTCPHandler(SocketServer.BaseRequestHandler):
     def handle( self ):
         global data_queue
         socket = self.request
-        cur_thread = threading.current_thread()
-        # try:
-        #If there is new data in the queue, send it, otherwise just close
-        #the socket
         if( not data_queue.empty() ):
             #If there is older data, discard it and use the newest
             while( not data_queue.empty() ):
                 next_data = data_queue.get()
             socket.sendto( next_data, self.client_address )
-        # except:
-            # #Handle socket errors gracefully
-            # print( "Socket error!." )
 
 #Don't make part of class def!!
 def GoalTCPStartHandler( que ):
