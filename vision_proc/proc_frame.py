@@ -14,6 +14,12 @@ import sys
 #                                  VARIABLES
 #-------------------------------------------------------------------------------
 
+def cvClr( R, G, B ):
+    """
+    Color array macro
+    """
+    return( numpy.array( [R,G,B], numpy.uint8 ) )
+
 #=====================================================================
 # Approx. The green color range
 #=====================================================================
@@ -57,11 +63,7 @@ class Point:
 #                                  PROCEDURES
 #-------------------------------------------------------------------------------
 
-def cvClr( R, G, B ):
-    """
-    Color array macro
-    """
-    return( numpy.array( [R,G,B], numpy.uint8 ) )
+
 
 def find_squares( contours, debug=False ):
     """
@@ -164,9 +166,10 @@ def dist_from_goal( area ):
         # greater then the previous area, then the distance is some
         # where in between.  Then do linear interpolation
         #=============================================================
-        if area < cur[ 'area' ] and area > prev[ 'area' ]:
-            dist = lin_scale( area, prev[ 'area' ], prev[ 'dist ft' ], cur[ 'area' ], cur[ 'dist ft' ] )
+        if area > cur[ 'area' ] and area < prev[ 'area' ]:
+            dist = lin_scale( area, cur[ 'area' ], cur[ 'dist ft' ], prev[ 'area' ], prev[ 'dist ft' ] )
             return dist
+        prev = cur
     return dist
 
 
@@ -233,3 +236,4 @@ def proc_frame( frame, debug=False ):
 
     #return dist_from_goal( hull_area ), angle_from_point( centers[0].x, len( frame[0] ) )
     return( 3, 4 )
+

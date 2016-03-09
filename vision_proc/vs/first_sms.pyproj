@@ -1,32 +1,32 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-    <PropertyGroup>
-        <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-        <SchemaVersion>2.0</SchemaVersion>
-        <ProjectGuid>{a1957bd4-45f2-4f31-8f74-f5de186b65c5}</ProjectGuid>
-        <ProjectHome>..\</ProjectHome>
-        <StartupFile />
-        <SearchPath />
-        <WorkingDirectory>.</WorkingDirectory>
-        <OutputPath>.</OutputPath>
-        <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
-        <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
-    </PropertyGroup>
-    <PropertyGroup Condition="'$(Configuration)' == 'Debug'" />
-    <PropertyGroup Condition="'$(Configuration)' == 'Release'" />
-    <ItemGroup>
-        <Compile Include="GoalTCPServer.py" />
-        <Compile Include="goal_main.py" />
-        <Compile Include="proc_frame.py" />
-        <Content Include="pics\goal_area.jpg" />
-        <Content Include="pics\goal_frame.jpg" />
-        <Content Include="pics\goal_frame0.jpg" />
-        <Content Include="pics\goal_frame1.jpg" />
-        <Content Include="pics\goal_frame2.jpg" />
-        <Content Include="pics\goal_frame3.jpg" />
-    </ItemGroup>
-    <ItemGroup>
-        <Folder Include="pics" />
-    </ItemGroup>
-    <Import Project="$(MSBuildToolsPath)\Microsoft.Common.targets" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{a1957bd4-45f2-4f31-8f74-f5de186b65c5}</ProjectGuid>
+    <ProjectHome>..\</ProjectHome>
+    <StartupFile>goal_main.py</StartupFile>
+    <SearchPath />
+    <WorkingDirectory>.</WorkingDirectory>
+    <OutputPath>.</OutputPath>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)' == 'Debug'" />
+  <PropertyGroup Condition="'$(Configuration)' == 'Release'" />
+  <ItemGroup>
+    <Compile Include="GoalTCPServer.py" />
+    <Compile Include="goal_main.py" />
+    <Compile Include="proc_frame.py" />
+    <Content Include="pics\goal_area.jpg" />
+    <Content Include="pics\goal_frame.jpg" />
+    <Content Include="pics\goal_frame0.jpg" />
+    <Content Include="pics\goal_frame1.jpg" />
+    <Content Include="pics\goal_frame2.jpg" />
+    <Content Include="pics\goal_frame3.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="pics" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.Common.targets" />
 </Project>
