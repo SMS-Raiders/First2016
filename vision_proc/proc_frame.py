@@ -38,18 +38,19 @@ MAX_AREA = 5000
 # Numbers Determined from experiment apart from 0 and 20
 # Straight on to Goal
 # width and height and area are in pixel area
+# THIS IS THE COUNTOUR AREA NOT THE CONVEX HULL AREA!
 #=================================================================
 goal_lkup = [
-            { 'dist ft' :  0, 'width' : 200, 'height' : 90, 'area' : 9000, 'ratio h_w' : 0.58 },  #0ft not tested needs to be large
-            { 'dist ft' :  7, 'width' : 151, 'height' : 88, 'area' : 4828, 'ratio h_w' : 0.58 },
-            { 'dist ft' :  8, 'width' : 141, 'height' : 85, 'area' : 4700, 'ratio h_w' : 0.60 },
-            { 'dist ft' :  9, 'width' : 132, 'height' : 81, 'area' : 4300, 'ratio h_w' : 0.61 },
-            { 'dist ft' : 10, 'width' : 123, 'height' : 78, 'area' : 3860, 'ratio h_w' : 0.63 },
-            { 'dist ft' : 11, 'width' : 114, 'height' : 75, 'area' : 3420, 'ratio h_w' : 0.65 },
-            { 'dist ft' : 12, 'width' : 108, 'height' : 73, 'area' : 3120, 'ratio h_w' : 0.67 },
-            { 'dist ft' : 13, 'width' : 102, 'height' : 70, 'area' : 2770, 'ratio h_w' : 0.68 },
-            { 'dist ft' : 14, 'width' : 96 , 'height' : 68, 'area' : 2357, 'ratio h_w' : 0.71 },
-            { 'dist ft' : 20, 'width' : 60 , 'height' : 35, 'area' : 1000, 'ratio h_w' : 0.9  }  ] #20 ft not tested needs to be small
+            { 'dist ft' :  0, 'width' : 200, 'height' : 90, 'area' : 9000, 'ratio w_h' : 1.80 },  #0ft not tested needs to be large
+            { 'dist ft' :  7, 'width' : 151, 'height' : 88, 'area' : 4828, 'ratio w_h' : 1.71 },
+            { 'dist ft' :  8, 'width' : 141, 'height' : 85, 'area' : 4700, 'ratio w_h' : 1.65 },
+            { 'dist ft' :  9, 'width' : 132, 'height' : 81, 'area' : 4300, 'ratio w_h' : 1.62 },
+            { 'dist ft' : 10, 'width' : 123, 'height' : 78, 'area' : 3860, 'ratio w_h' : 1.57 },
+            { 'dist ft' : 11, 'width' : 114, 'height' : 75, 'area' : 3420, 'ratio w_h' : 1.52 },
+            { 'dist ft' : 12, 'width' : 108, 'height' : 73, 'area' : 3120, 'ratio w_h' : 1.47 },
+            { 'dist ft' : 13, 'width' : 102, 'height' : 70, 'area' : 2770, 'ratio w_h' : 1.45 },
+            { 'dist ft' : 14, 'width' : 96 , 'height' : 68, 'area' : 2357, 'ratio w_h' : 1.41 },
+            { 'dist ft' : 20, 'width' : 60 , 'height' : 35, 'area' : 1000, 'ratio w_h' : 1.30 }  ] #20 ft not tested needs to be small
 
 #-------------------------------------------------------------------------------
 #                                   CLASSES
@@ -63,22 +64,27 @@ class Point:
 #                                  PROCEDURES
 #-------------------------------------------------------------------------------
 
-
-
 def find_squares( contours, debug=False ):
     """
     Find square shaped objects
     """
+    #=================================================================
+    # The Minimum and Maximum rations for width vs height for the goal
+    # based on experimental results  goal is approx 1.5:1
+    #=================================================================
+    MIN_RATIO = 1.3
+    MAX_RATIO = 1.8
     ret = []
 
     for shape in contours:
         x, y, w, h = cv2.boundingRect( shape )
+        w_h_ratio = float( w ) / float( h )
         if debug:
             print "Area", (w * h)
             print "Width ", w
             print "Height", h
-        x_y_ratio= x / y
-        ret.append( shape )
+        if MIN_RATIO < w_h_ratio and w_h_ratio < MAX_RATIO:
+            ret.append( shape )
 
     return( ret )
 
@@ -234,6 +240,4 @@ def proc_frame( frame, debug=False ):
         cv2.imshow( "Goal", frame )
         #cv2.imshow( "Mask", masked_frame )
 
-    #return dist_from_goal( hull_area ), angle_from_point( centers[0].x, len( frame[0] ) )
-    return( 3, 4 )
-
+    return dist_from_goal( squares ), angle_from_point( centers[0].x, len( frame[0] ) )
